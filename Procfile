@@ -1,1 +1,1 @@
-web: bin/stage2
+web: stage2
