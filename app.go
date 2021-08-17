@@ -1,10 +1,10 @@
 package main
 
 import (
-	"log"
-
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/template/html"
+	"log"
+	"os"
 )
 
 type Mes struct {
@@ -45,6 +45,7 @@ func handlers(app *fiber.App) {
 }
 
 func main() {
+	port := os.Getenv("PORT")
 	engine := html.New("./public", ".html")
 	app := fiber.New(fiber.Config{
 		Views: engine,
@@ -52,5 +53,5 @@ func main() {
 
 	handlers(app)
 
-	log.Fatal(app.Listen(":4000"))
+	log.Fatal(app.Listen(":" + port))
 }
