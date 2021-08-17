@@ -1,1 +1,1 @@
-web: stage2
+web: app
