@@ -45,7 +45,7 @@ func sub(c *fiber.Ctx) error {
 
 	sender := mailer.NewSender(email, password)
 
-	msg, err := sender.WriteMessage(mes.Name, path+"mailTemplate/mailTemplate.html")
+	msg, err := sender.WriteMessage(mes.Name, path+"appmailTemplate/mailTemplate.html")
 	if err != nil {
 		fmt.Println(err)
 	}
