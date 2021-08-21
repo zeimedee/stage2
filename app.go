@@ -1,10 +1,13 @@
 package main
 
 import (
-	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/template/html"
+	"fmt"
 	"log"
 	"os"
+
+	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/template/html"
+	"github.com/zeimedee/stage2/mailer"
 )
 
 type Mes struct {
@@ -26,13 +29,35 @@ func hello(c *fiber.Ctx) error {
 }
 
 func sub(c *fiber.Ctx) error {
+	Email := os.Getenv("EMAIL")
+	Pass := os.Getenv("PASSWORD")
+
 	mes := new(Mes)
 	err := c.BodyParser(mes)
+	mailer.Check(err)
+
+	email := Email
+	password := Pass
+	recipient := mes.Email
+	cc := []string{}
+	path, err := os.Getwd()
+	mailer.Check(err)
+
+	sender := mailer.NewSender(email, password)
+
+	msg, err := sender.WriteMessage(mes.Name, path+"mailTemplate/mailTemplate.html")
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
+
+	body := sender.WriteEmail(recipient, mes.Subject, msg, cc)
+
+	mail, err := sender.Mail(mes.Name, string(body), recipient)
+	mailer.Check(err)
+
 	return c.Render("index", fiber.Map{
-		"Sub": mes.Name,
+		"Sub":  mes.Name,
+		"Sent": mail,
 	})
 }
 
