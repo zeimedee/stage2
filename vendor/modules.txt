@@ -15,6 +15,9 @@ github.com/gofiber/fiber/v2/utils
 ## explicit
 github.com/gofiber/template/html
 github.com/gofiber/template/utils
+# github.com/joho/godotenv v1.3.0
+## explicit
+github.com/joho/godotenv
 # github.com/klauspost/compress v1.12.2
 github.com/klauspost/compress/flate
 github.com/klauspost/compress/gzip
