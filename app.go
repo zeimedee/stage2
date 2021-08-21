@@ -40,8 +40,8 @@ func sub(c *fiber.Ctx) error {
 	password := Pass
 	recipient := mes.Email
 	cc := []string{}
-	path, err := os.Getwd()
-	mailer.Check(err)
+	// path, err := os.Getwd()
+	// mailer.Check(err)
 
 	sender := mailer.NewSender(email, password)
 
