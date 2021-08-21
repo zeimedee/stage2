@@ -36,7 +36,7 @@ func (sender Sender) Mail(subject, message, dest string) (string, error) {
 	if err != nil {
 		return "failed to send", errors.New(err.Error())
 	}
-	return "Mail sent", nil
+	return "Message sent", nil
 }
 
 func (sender Sender) WriteEmail(dest, subject, msg string, Cc []string) string {
