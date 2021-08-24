@@ -2,12 +2,13 @@ package main
 
 import (
 	"fmt"
+	"log"
+	"os"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/template/html"
 	"github.com/joho/godotenv"
 	"github.com/zeimedee/stage2/mailer"
-	"log"
-	"os"
 )
 
 type Mes struct {
@@ -36,10 +37,6 @@ func sub(c *fiber.Ctx) error {
 
 	Email := os.Getenv("EMAIL")
 	Pass := os.Getenv("PASSWORD")
-	if Email == "" || Pass == "" {
-		err := godotenv.Load()
-		mailer.Check(err)
-	}
 
 	email := Email
 	password := Pass
@@ -79,6 +76,11 @@ func handlers(app *fiber.App) {
 }
 
 func main() {
+
+	if os.Getenv("EMAIL") == "" || os.Getenv("PASS") == "" {
+		err := godotenv.Load()
+		mailer.Check(err)
+	}
 	port := os.Getenv("PORT")
 	engine := html.New("./public", ".html")
 	app := fiber.New(fiber.Config{
